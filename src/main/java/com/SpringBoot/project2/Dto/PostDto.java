@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserFollowDto {
-    private Long ufId;
-    private Integer followingId;
-    private Long followerId;
+public class PostDto {
+    private Long postId;
+    private Long userId;
+    private String post;
 }
