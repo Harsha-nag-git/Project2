@@ -46,5 +46,9 @@ public class UserController {
     public List<UserFollowDto> getUserFollowByUserId(@PathVariable("follower_id") Long id) {
         return userService.getUserFollowByUserId(id);
     }
+    @GetMapping("/hello")
+    public String hello(){
+        return "hello i am using git hub";
+    }
 
 }
