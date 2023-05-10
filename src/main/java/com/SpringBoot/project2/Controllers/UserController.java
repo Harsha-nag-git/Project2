@@ -43,13 +43,8 @@ public class UserController {
         return "Successfully Followed";
     }
     @GetMapping("/user/follow/{follower_id}")
-    public List<UserFollowDto> getUserFollowByUserId(@PathVariable("follower_id") Long id){
-        return  userService.getUserFollowByUserId(id);
+    public List<UserFollowDto> getUserFollowByUserId(@PathVariable("follower_id") Long id) {
+        return userService.getUserFollowByUserId(id);
     }
-    @GetMapping("/git")
-    public String hello(){
-        return "hello git new";
-    }
-
 
 }
