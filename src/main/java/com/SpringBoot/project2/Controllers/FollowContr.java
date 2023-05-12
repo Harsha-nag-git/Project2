@@ -12,14 +12,14 @@ import java.util.List;
 public class FollowContr {
     @Autowired
     private Service service;
-    @PostMapping("/user/follow/{follower_id}")
-    public String saveUserFollowData(@PathVariable("follower_id") Long id,
+    @PostMapping("/user/follow/{userId}")
+    public String saveUserFollowData(@PathVariable("userId") Integer id,
                                      @RequestBody Follow follow){
         Follow follow1 = service.saveUserFollowData(id, follow);
         return "Successfully Followed";
     }
-    @GetMapping("/user/follow/{follower_id}")
-    public List<FollowDto> getUserFollowByUserId(@PathVariable("follower_id") Long id) {
+    @GetMapping("/user/follow/{userId}")
+    public List<FollowDto> getUserFollowByUserId(@PathVariable("userId") Integer id) {
         return service.getUserFollowByUserId(id);
     }
 }

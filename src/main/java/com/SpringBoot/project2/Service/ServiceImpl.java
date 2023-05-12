@@ -1,8 +1,8 @@
 package com.SpringBoot.project2.Service;
 
-import com.SpringBoot.project2.Dto.UserDto;
 import com.SpringBoot.project2.Dto.FollowDto;
 import com.SpringBoot.project2.Dto.PostDto;
+import com.SpringBoot.project2.Dto.UserDto;
 import com.SpringBoot.project2.Entity.Follow;
 import com.SpringBoot.project2.Entity.Posts;
 import com.SpringBoot.project2.Entity.User;
@@ -23,7 +23,7 @@ public class ServiceImpl implements Service {
     @Autowired
     private FollowRepository followRepository;
 
-    public User saveUser(com.SpringBoot.project2.Entity.User user){
+    public User saveUser(User user){
         user.setPassword(String.valueOf(user.getPassword().hashCode()));
         return userRepository.save(user);}
 
@@ -43,17 +43,21 @@ public class ServiceImpl implements Service {
     }
     //---------------------------------------------------
     @Override
-    public User loginByEmailAndPassword(String email, String password) {
-        return userRepository.findUserByEmailAndPassword(email,password);
+    public User fetchByEmailAndPassword(String email, String password){
+         User user = userRepository.findByEmail(email);
+         if (user.getPassword().equals(password)){
+             return user;
+         }
+         return user;
     }
     @Override
-    public Posts savePosts(Long id, Posts posts) {
-        posts.setUser(userRepository.findById(id).get());
-        return postRepository.save(posts);}
+    public Posts savePosts(Integer id, Posts userPosts) {
+        userPosts.setUser(userRepository.findById(id).get());
+        return postRepository.save(userPosts);}
 
     //-----------getUserPosts---------------------
     @Override
-    public List<PostDto> getPostsByUserId(Long id){
+    public List<PostDto> getPostsByUserId(Integer id){
         return postRepository.findByUserIdToGetPosts(id)
                 .stream()
                 .map(this::getUserPosts)
@@ -69,13 +73,13 @@ public class ServiceImpl implements Service {
     }
     //--------------------------------------------------------
     @Override
-    public Follow saveUserFollowData(Long id, Follow follow){
+    public Follow saveUserFollowData(Integer id, Follow follow){
         follow.setUser(userRepository.findById(id).get());
         return followRepository.save(follow);
     }
     //------------------**-------------------------------
     @Override
-    public List<FollowDto> getUserFollowByUserId(Long id) {
+    public List<FollowDto> getUserFollowByUserId(Integer id) {
          return followRepository.findByUserIdToGetFollower(id)
                 .stream()
                 .map(this::getUserFollow)
@@ -85,14 +89,14 @@ public class ServiceImpl implements Service {
     private FollowDto getUserFollow(Follow follow){
         FollowDto followDto =  new FollowDto();
         followDto.setUfId(follow.getUfId());
-        followDto.setFollowingId(follow.getFollowingId());
-        followDto.setFollowerId(follow.getUser().getId());
+        followDto.setUserFollowingId(follow.getUsers().getId());
+        followDto.setUserId(follow.getUser().getId());
 
         return followDto;
     }
     //--------------------------------------------------------------
-    public Posts getFollowersData(Long followerId, Long followingId){
-        Posts posts = postRepository.findById(followerId).get();
+    public Posts getFollowersData(Integer userId){
+        Posts posts = postRepository.findById(userId).get();
         return posts;
     }
 

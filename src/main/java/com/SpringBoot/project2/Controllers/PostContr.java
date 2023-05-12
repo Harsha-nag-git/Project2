@@ -14,13 +14,13 @@ public class PostContr {
     private Service service;
 
     @PostMapping("/user/post/{userId}")
-    public String savePosts(@PathVariable("userId")Long id,
+    public String savePosts(@PathVariable("userId")Integer id,
                                 @RequestBody Posts userPosts){
         Posts posts = service.savePosts(id,userPosts);
         return "Successfully Posted";
     }
     @GetMapping("/user/posts/{user_id}")
-    public List<PostDto> getUserPostsByUserId(@PathVariable("user_id") Long id){
+    public List<PostDto> getUserPostsByUserId(@PathVariable("user_id") Integer id){
         return  service.getPostsByUserId(id);
     }
 }

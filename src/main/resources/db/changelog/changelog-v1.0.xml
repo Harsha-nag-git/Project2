@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="project2-user">
+        <createTable tableName="user">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="PK_USERS"/>
+            </column>
+            <column name="first_name" type="varchar(200)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="UK_FIRSTNAME"/>
+            </column>
+            <column name="last_name" type="varchar(200)"></column>
+            <column name="email" type="varchar(200)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="UK_EMAIL"/>
+            </column>
+            <column name="password" type="varchar(200)">
+                <constraints unique="true" uniqueConstraintName="UK_PASSWORD" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="project2-pots">
+        <createTable tableName="posts">
+            <column name="post_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="PK_POST_ID"/>
+            </column>
+            <column name="post" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints foreignKeyName="PK_USERS_Posts" references="user(id)" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="project2-follow">
+        <createTable tableName="follow">
+            <column name="uf_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="PK_FOLLOW_ID"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints foreignKeyName="FK_USER_ID" references="user(id)"/>
+            </column>
+            <column name="following_id" type="BIGINT">
+                <constraints foreignKeyName="FK_Follow_User_ID" references="user(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
