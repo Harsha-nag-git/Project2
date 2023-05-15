@@ -11,7 +11,7 @@ import java.util.List;
 public interface FollowRepository extends JpaRepository<Follow,Integer> {
 
     @Query(
-            value = "select * from follow  where follower_id = ?1",
+            value = "select * from follow  where user_id = ?1",
             nativeQuery = true
     )
     public List<Follow> findByUserIdToGetFollower(Integer id);

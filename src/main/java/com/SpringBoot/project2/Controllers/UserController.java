@@ -16,8 +16,9 @@ public class UserController {
     public String saveUser(@RequestBody User user){ service.saveUser(user); return "Successfully Uploaded";}
     @GetMapping("/users")
     public List<UserDto> getUsers(){ return service.getUsers(); }
-    @PostMapping("/user/email/{email}")
-    public User fetchByEmailAndPassword(@PathVariable("email") String email,String password) {
+    @GetMapping("/user/email/{email}/{password}")
+    public User fetchByEmailAndPassword(@PathVariable("email") String email
+            ,@PathVariable("password") String password) {
         return service.fetchByEmailAndPassword(email,password);
     }
 

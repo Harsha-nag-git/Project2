@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FollowDto {
     private Integer ufId;
-    private Integer userFollowingId;
+    private Integer followingId;
     private Integer userId;
 }

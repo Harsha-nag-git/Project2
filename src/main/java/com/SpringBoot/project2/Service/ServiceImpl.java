@@ -44,11 +44,7 @@ public class ServiceImpl implements Service {
     //---------------------------------------------------
     @Override
     public User fetchByEmailAndPassword(String email, String password){
-         User user = userRepository.findByEmail(email);
-         if (user.getPassword().equals(password)){
-             return user;
-         }
-         return user;
+         return userRepository.findByEmailAndPassword(email,password);
     }
     @Override
     public Posts savePosts(Integer id, Posts userPosts) {
@@ -89,7 +85,7 @@ public class ServiceImpl implements Service {
     private FollowDto getUserFollow(Follow follow){
         FollowDto followDto =  new FollowDto();
         followDto.setUfId(follow.getUfId());
-        followDto.setUserFollowingId(follow.getUsers().getId());
+        followDto.setFollowingId(follow.getFollowingId());
         followDto.setUserId(follow.getUser().getId());
 
         return followDto;
